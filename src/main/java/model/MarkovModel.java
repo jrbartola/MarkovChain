@@ -60,13 +60,13 @@ public class MarkovModel {
         while (!endWords.contains(currentWord)) {
             sb.append(currentWord + " ");
             ArrayList<String> nextStates = model.get(currentWord);
-            if (nextStates == null) return sb.toString() + ".\n";
+            if (nextStates == null) return sb.toString().trim() + ".\n";
             rand = ThreadLocalRandom.current().nextInt(0, nextStates.size());
             currentWord = nextStates.get(rand);
         }
 
         sb.append(currentWord);
-
+        //System.out.println(endWords);
         return sb.toString() + "\n";
 
 

@@ -23,7 +23,7 @@ public class MarkovChain {
             String line;
             while ((line = br.readLine()) != null) {
                 line = line.replace(",","").replace("-", "");
-                if (line.equals("")) continue;
+                if (line.equals("") || line.equals(" ")) continue;
                 markovModel.trainModel(line);
             }
         } catch (IOException e) {
@@ -42,7 +42,7 @@ public class MarkovChain {
     }
 
     public static void main(String[] args) {
-        File f = new File("src/main/java/sample.txt");
+        File f = new File("src/main/java/osama.txt");
         MarkovChain mc = new MarkovChain();
         mc.feed(f);
         System.out.println(mc.makeText(5));
