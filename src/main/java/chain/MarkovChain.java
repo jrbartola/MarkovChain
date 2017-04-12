@@ -8,7 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
- * Created by Jesse on 4/11/17.
+ * Created by Jesse Bartola on 4/11/17.
  */
 public class MarkovChain {
 
@@ -17,6 +17,12 @@ public class MarkovChain {
     public MarkovChain() {
         markovModel = new MarkovModel();
     }
+
+    /** Trains a Markov Chain model using frequencies of words from
+     * a given text file
+     *
+     * @param f filename of the text used to train the Markov Chain model
+     */
 
     public void feed(File f) {
         try (BufferedReader br = new BufferedReader(new FileReader(f))) {
@@ -31,6 +37,12 @@ public class MarkovChain {
         }
     }
 
+    /** Generates a paragraph of sentences put together by state transitions
+     *  based on the word frequencies contained in the Markov Chain model
+     *
+     * @param length The number of sentences to generate from the model
+     */
+
     public String makeText(int length) {
         StringBuilder sb = new StringBuilder();
 
@@ -42,7 +54,7 @@ public class MarkovChain {
     }
 
     public static void main(String[] args) {
-        File f = new File("src/main/java/osama.txt");
+        File f = new File("src/main/java/trumpwin.txt");
         MarkovChain mc = new MarkovChain();
         mc.feed(f);
         System.out.println(mc.makeText(5));

@@ -22,6 +22,13 @@ public class MarkovModel {
 
     }
 
+    /** Trains our Markov Model by adding words and their relative
+     *  sequential occurrences into our state space
+     *
+     * @param input A string of words from which their frequencies
+     *              are extracted and trained into our model
+     */
+
     public void trainModel(String input) {
 
         String[] words = input.split(" ");
@@ -43,6 +50,12 @@ public class MarkovModel {
         }
     }
 
+    /** Generates a sentence based on frequencies gathered from
+     *  training the MarkovModel
+     *
+     *  @param None
+     */
+
     public String generateSentence() {
         // If our map is empty return the empty string
         if (model.size() == 0) {
@@ -52,6 +65,7 @@ public class MarkovModel {
         ArrayList<String> startWords = model.get("_begin");
         ArrayList<String> endWords = model.get("_end");
 
+        // Retrieve a starting word to begin our sentence
         int rand = ThreadLocalRandom.current().nextInt(0, startWords.size());
 
         String currentWord = startWords.get(rand);
@@ -60,13 +74,15 @@ public class MarkovModel {
         while (!endWords.contains(currentWord)) {
             sb.append(currentWord + " ");
             ArrayList<String> nextStates = model.get(currentWord);
+
             if (nextStates == null) return sb.toString().trim() + ".\n";
+
             rand = ThreadLocalRandom.current().nextInt(0, nextStates.size());
             currentWord = nextStates.get(rand);
         }
 
         sb.append(currentWord);
-        //System.out.println(endWords);
+
         return sb.toString() + "\n";
 
 
